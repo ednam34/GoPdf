@@ -1,4 +1,4 @@
-module myproject
+module gopdf
 
 go 1.21
 
