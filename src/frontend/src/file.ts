@@ -1,0 +1,81 @@
+
+
+import { page, pageToDelete, pdfKey, pdfPath } from './shared';
+import { ImgToPdf, MergePdf, OpenSinglePdf, OptimizePdf, PrintAny, RemovePages, SaveModifiedPDF } from '../wailsjs/go/Application/App';
+
+
+export function OpenFile() {
+    OpenSinglePdf()
+        .then(t => {
+            if (t) {
+                pdfPath.value = `${t}`; // Mettre à jour le chemin du PDF
+                page.value = 1;
+                pdfKey.value++;
+                PrintAny(t)
+                pageToDelete.value = [];
+            }
+        })
+        .catch(error => {
+            console.error("Erreur lors de l'ouverture du PDF:", error);
+        });
+}
+
+export function Compress() {
+    OptimizePdf().then(t => {
+        if (t) {
+            pdfPath.value = `${t}`; // Mettre à jour le chemin du PDF
+            page.value = 1;
+            pdfKey.value++;
+            PrintAny(t)
+            pageToDelete.value = [];
+        }
+    }).catch(error => {
+        console.error("Erreur lors de l'ouverture du PDF:", error);
+    });
+}
+
+
+export function Merge() {
+    MergePdf().then(t => {
+        if (t) {
+            pdfPath.value = `${t}`; // Mettre à jour le chemin du PDF
+            page.value = 1;
+            pdfKey.value++;
+            PrintAny(t)
+            pageToDelete.value = [];
+        }
+    })
+        .catch(error => {
+            console.error("Erreur lors de l'ouverture du PDF:", error);
+        });
+}
+
+export function SavePdf() {
+    SaveModifiedPDF(pdfPath.value)
+}
+
+
+export function ImageConv() {
+    ImgToPdf().then(t => {
+        if (t) {
+            pdfPath.value = `${t}`; // Mettre à jour le chemin du PDF
+            page.value = 1;
+            pdfKey.value++;
+            PrintAny(t)
+            pageToDelete.value = [];
+        }
+    }).catch(error => {
+        console.error("Erreur lors de l'ouverture du PDF:", error);
+    });
+}
+
+
+export function RemovePg() {
+    
+    RemovePages([page.value], pdfPath.value).then(path => {
+        pdfPath.value = path; // Mettre à jour le chemin du PDF
+        pdfKey.value++;    // Incrémenter la clé pour forcer le rechargement du composant
+        pageToDelete.value = []
+    })
+
+}

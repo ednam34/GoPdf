@@ -92,7 +92,7 @@ func DeleteAllTempFiles() error {
 func GetTempFile(ext string) string {
 	fileName := "temp-*" + ext
 
-	randId := strconv.Itoa(rand.Intn(10000000000))
+	randId := strconv.Itoa(rand.Intn(1000000000000))
 
 	fileName = strings.Replace(fileName, "*", randId, -1)
 

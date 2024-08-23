@@ -45,8 +45,8 @@ func main() {
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:  "gopdf",
-		Width:  700,
-		Height: 700,
+		Width:  900,
+		Height: 750,
 		AssetServer: &assetserver.Options{
 			Assets:  assets,
 			Handler: NewFileLoader(),

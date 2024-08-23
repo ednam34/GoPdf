@@ -25,22 +25,10 @@ func (a *App) MergePdf() string {
 		return "select a file"
 	}
 
-	NewfilePath, err2 := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
-		Title: "Save file",
-		Filters: []runtime.FileFilter{
-			{
-				DisplayName: "pdf file",
-				Pattern:     "*.pdf",
-			},
-		},
-		DefaultFilename: "merge.pdf",
-	})
-	if err2 != nil {
-		fmt.Println(err)
-	}
+	NewfilePath := utils.GetTempFile(".pdf")
 
-	api.MergeCreateFile(filePath, NewfilePath, false, nil)
-	return "The Pdf's have been mixed"
+	api.MergeCreateFile(filePath, "./temp/"+NewfilePath, false, nil)
+	return NewfilePath
 }
 
 // Optimize a PDF File
@@ -62,22 +50,10 @@ func (a *App) OptimizePdf() string {
 	}
 	defer inputFile.Close()
 
-	NewfilePath, err := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
-		Title: "Save file",
-		Filters: []runtime.FileFilter{
-			{
-				DisplayName: "pdf file",
-				Pattern:     "*.pdf",
-			},
-		},
-		DefaultFilename: "compressed.pdf",
-	})
-	if err != nil {
-		fmt.Println(err)
-	}
+	NewfilePath := utils.GetTempFile(".pdf")
 
 	// Create the output file
-	outputFile, err := os.Create(NewfilePath)
+	outputFile, err := os.Create("./temp/" + NewfilePath)
 	if err != nil {
 		return "an error has occurred"
 	}
@@ -92,7 +68,7 @@ func (a *App) OptimizePdf() string {
 		return "an error has occurred"
 	}
 
-	return "The pdf has been compressed"
+	return NewfilePath
 }
 
 func (a *App) ImgToPdf() string {
@@ -109,33 +85,16 @@ func (a *App) ImgToPdf() string {
 
 	config := model.NewDefaultConfiguration()
 
-	outputPath, err2 := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
-		Title: "Save file",
-		Filters: []runtime.FileFilter{
-			{
-				DisplayName: "pdf file",
-				Pattern:     "*.pdf",
-			},
-		},
-		DefaultFilename: "merge.pdf",
-	})
-	if err2 != nil {
-		fmt.Println(err)
-	}
+	outputPath := utils.GetTempFile(".pdf")
 
 	//Image will be on an A5 format
 	imp, _ := api.Import("f:A5, pos:c", types.POINTS)
 
-	err = api.ImportImagesFile(filePath, outputPath, imp, config)
+	err = api.ImportImagesFile(filePath, "./temp/"+outputPath, imp, config)
 	if err != nil {
 		return "an error has occured"
 	}
-	if len(filePath) == 1 {
-		return "the image has been converted"
-	} else {
-		return "the images have been converted"
-
-	}
+	return outputPath
 }
 
 func (a *App) OpenSinglePdf() string {

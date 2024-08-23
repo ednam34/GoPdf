@@ -1,47 +1,50 @@
 <template>
-    <div class="pdf-viewer">
-        <div class="pdf-container">
-            <div class="pdf-controls">
-                <el-button type="warning" @click="prevPage" text>
-                    <el-icon>
-                        <ArrowLeftBold />
-                    </el-icon>
-                </el-button>
-                <span>{{ page }} / {{ pages }}</span>
-                <el-button type="warning" @click="nextPage" text>
-                    <el-icon>
-                        <ArrowRightBold />
-                    </el-icon>
-                </el-button>
-            </div>
-            <div class="pdf">
-                <!-- Utiliser une clé pour forcer le rechargement du composant -->
-                <VuePDF :pdf="pdf" :page="page" :scale="0.5" :key="pdfKey" />
-            </div>
-            <div id="input" class="input-box">
-                <el-button type="warning" @click="removePage" plain>
-                    <el-icon>
-                        <CloseBold />
-                    </el-icon>
-                </el-button>
-                <el-button type="warning" @click="nextPage" plain>
-                    <el-icon><Select /></el-icon>
-                </el-button>
-                <el-button type="warning" @click="OpenFile" plain>
-                    Open File
-                </el-button>
-            </div>
+    <main class="test2">
+        <div class="pdf-viewer">
+            <div class="pdf-container">
+                <div class="pdf-controls">
+                    <el-button type="warning" @click="prevPage" text>
+                        <el-icon>
+                            <ArrowLeftBold />
+                        </el-icon>
+                    </el-button>
+                    <span>{{ page }} / {{ pages }}</span>
+                    <el-button type="warning" @click="nextPage" text>
+                        <el-icon>
+                            <ArrowRightBold />
+                        </el-icon>
+                    </el-button>
+                </div>
+                <div class="pdf">
+                    <!-- Utiliser une clé pour forcer le rechargement du composant -->
+                    <VuePDF :pdf="pdf" :page="page" :scale="0.5" :key="pdfKey" />
+                </div>
+                <div id="input" class="input-box">
+                    <el-button type="warning" @click="removePage" plain>
+                        <el-icon>
+                            <CloseBold />
+                        </el-icon>
+                    </el-button>
+                    <el-button type="warning" @click="nextPage" plain>
+                        <el-icon><Select /></el-icon>
+                    </el-button>
+                    <el-button type="warning" @click="OpenFile" plain>
+                        Open File
+                    </el-button>
+                </div>
 
+            </div>
         </div>
-    </div>
-    <div class="deletePages">
-        <el-button type="warning" @click="removeP" plain>
-            Remove pages
-        </el-button>
-        <el-button type="warning" @click="saveFile" plain>
-            Save the file
-        </el-button>
-    </div>
+        <div class="deletePages">
+            <el-button type="warning" @click="removeP" plain>
+                Remove pages
+            </el-button>
+            <el-button type="warning" @click="saveFile" plain>
+                Save the file
+            </el-button>
+        </div>
+    </main>
+
 </template>
 
 <script lang="ts" setup>
@@ -49,17 +52,14 @@ import { ref } from 'vue';
 import { VuePDF, usePDF } from '@tato30/vue-pdf';
 import { ArrowLeftBold, ArrowRightBold, Select, CloseBold } from '@element-plus/icons-vue';
 import { OpenSinglePdf, PrintArr, PrintString, PrintAny, RemovePages, SaveModifiedPDF } from '../../wailsjs/go/Application/App';
+import { page,pageToDelete,pdfKey,pdfPath } from '../shared';
 
-const page = ref(1);
-const pageToDelete = ref<number[]>([]);
-const pdfPath = ref('src/test.pdf'); // Chemin initial du PDF
-const pdfKey = ref(0); // Clé pour forcer le rechargement
 
 const { pdf, pages } = usePDF(pdfPath);
 
 
 
-function saveFile () {
+function saveFile() {
     SaveModifiedPDF(pdfPath.value)
 };
 
@@ -97,11 +97,11 @@ function OpenFile() {
 }
 
 function removeP() {
-    RemovePages(pageToDelete.value, pdfPath.value).then(path =>{
-    pdfPath.value = path; // Mettre à jour le chemin du PDF
-            page.value = 1;    // Réinitialiser à la première page
-            pdfKey.value++;    // Incrémenter la clé pour forcer le rechargement du composant
-            pageToDelete.value = []
+    RemovePages(pageToDelete.value, pdfPath.value).then(path => {
+        pdfPath.value = path; // Mettre à jour le chemin du PDF
+        page.value = 1;    // Réinitialiser à la première page
+        pdfKey.value++;    // Incrémenter la clé pour forcer le rechargement du composant
+        pageToDelete.value = []
     })
 }
 
@@ -118,13 +118,17 @@ const removePage = () => {
 </script>
 
 <style scoped>
+
+.test2{
+    /* background-color: aliceblue; */
+}
 .pdf-container {
     margin-top: 2%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80vh;
+    height: 75vh;
     overflow: auto;
 }
 

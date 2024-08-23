@@ -34,9 +34,9 @@ function Img() {
 }
 </script>
 
-<template>
-  <img id="logo" alt="Wails logo" src="../assets/images/pdf.png"/>
-  <main>
+<template >
+  <main class="test">
+    <img id="logo" alt="Wails logo" src="../assets/images/pdf.png"/>
     <div id="result" class="result"> <el-text class="mx-1" tag="b" type="warning" size="large">{{ data.resultText }}</el-text></div>
     <div id="input" class="input-box">
       <el-button type="warning" @click="Merge" plain>Merge<el-icon class="el-icon--right"><Upload /></el-icon></el-button> 
@@ -49,6 +49,11 @@ function Img() {
 
 <style scoped>
 
+.test{
+  /* background-color: aliceblue; */
+ 
+}
+
 .result {
   height: 20px;
   line-height: 20px;
@@ -56,7 +61,7 @@ function Img() {
 }
 
 #logo {
-  display: block;
+  display: flex;
   width: 50%;
   height: 50%;
   margin: auto;
