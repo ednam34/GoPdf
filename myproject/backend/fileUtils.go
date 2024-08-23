@@ -11,11 +11,10 @@ import (
 )
 
 func CopyFileToTemp(src string) (string, error) {
-	// Créer un fichier temporaire dans le répertoire temporaire du système
-	// tempDir := "./temp/"
+
 	name := GetTempFile(".pdf")
 
-	tempFile, err := os.Create("./temp/" + name) // Modifier le suffixe selon le type de fichier
+	tempFile, err := os.Create("./temp/" + name)
 	if err != nil {
 		return "", fmt.Errorf("échec de la création du fichier temporaire: %w", err)
 	}
@@ -28,13 +27,39 @@ func CopyFileToTemp(src string) (string, error) {
 	}
 	defer sourceFile.Close()
 
-	// Copier le contenu du fichier source dans le fichier temporaire
 	_, err = io.Copy(tempFile, sourceFile)
 	if err != nil {
 		return "", fmt.Errorf("échec de la copie du fichier: %w", err)
 	}
 	fmt.Println("le nome 2 : " + tempFile.Name())
 	return name, nil
+}
+
+func CopyFile(source string, destination string) error {
+
+	sourceFile, err := os.Open(source)
+	if err != nil {
+		return fmt.Errorf("échec de l'ouverture du fichier source: %w", err)
+	}
+	defer sourceFile.Close()
+
+	destinationFile, err := os.Create(destination)
+	if err != nil {
+		return fmt.Errorf("échec de la création du fichier de destination: %w", err)
+	}
+	defer destinationFile.Close()
+
+	_, err = io.Copy(destinationFile, sourceFile)
+	if err != nil {
+		return fmt.Errorf("échec de la copie du fichier: %w", err)
+	}
+
+	err = destinationFile.Sync()
+	if err != nil {
+		return fmt.Errorf("échec de la synchronisation du fichier de destination: %w", err)
+	}
+
+	return nil
 }
 
 func DeleteAllTempFiles() error {

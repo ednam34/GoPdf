@@ -18,3 +18,5 @@ export function PrintString(arg1:string):Promise<void>;
 export function PrintT(arg1:any):Promise<void>;
 
 export function RemovePages(arg1:Array<number>,arg2:string):Promise<string>;
+
+export function SaveModifiedPDF(arg1:string):Promise<void>;

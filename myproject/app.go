@@ -30,7 +30,7 @@ func (a *App) startup(ctx context.Context) {
 		// Si le répertoire n'existe pas, le crée
 		err := os.MkdirAll("./temp/", os.ModePerm)
 		if err != nil {
-			fmt.Println("échec de la création du répertoire %s: %w", "./temp/", err)
+			fmt.Printf("échec de la création du répertoire %s: %e", "./temp/", err)
 		}
 		fmt.Printf("Répertoire créé: %s\n", "./temp/")
 	} else {
@@ -211,6 +211,28 @@ func (a *App) RemovePages(pagesList []int, filePath string) string {
 	api.RemovePagesFile("./temp/"+filePath, outputFile, arr, nil)
 
 	return fileName
+}
+
+func (a *App) SaveModifiedPDF(path string) {
+	outputPath, err := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
+		Title: "Enregistrer le fichier",
+		Filters: []runtime.FileFilter{
+			{
+				DisplayName: "pdf file",
+				Pattern:     "*.pdf",
+			},
+		},
+		DefaultFilename: "merge.pdf",
+	})
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = backend.CopyFile("./temp/"+path, outputPath)
+
+	if err != nil {
+		fmt.Println(err)
+	}
 }
 
 func (a *App) beforeClosing(ctx context.Context) bool {

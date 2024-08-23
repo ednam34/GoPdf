@@ -38,6 +38,9 @@
         <el-button type="warning" @click="removeP" plain>
             Remove pages
         </el-button>
+        <el-button type="warning" @click="saveFile" plain>
+            Save the file
+        </el-button>
     </div>
 </template>
 
@@ -45,7 +48,7 @@
 import { ref } from 'vue';
 import { VuePDF, usePDF } from '@tato30/vue-pdf';
 import { ArrowLeftBold, ArrowRightBold, Select, CloseBold } from '@element-plus/icons-vue';
-import { OpenSinglePdf, PrintArr, PrintString, PrintT, RemovePages } from '../../wailsjs/go/main/App';
+import { OpenSinglePdf, PrintArr, PrintString, PrintT, RemovePages, SaveModifiedPDF } from '../../wailsjs/go/main/App';
 
 const page = ref(1);
 const pageToDelete = ref<number[]>([]);
@@ -56,6 +59,9 @@ const { pdf, pages } = usePDF(pdfPath);
 
 
 
+function saveFile () {
+    SaveModifiedPDF(pdfPath.value)
+};
 
 // Méthode pour aller à la page précédente
 const prevPage = () => {

@@ -37,3 +37,7 @@ export function PrintT(arg1) {
 export function RemovePages(arg1, arg2) {
   return window['go']['main']['App']['RemovePages'](arg1, arg2);
 }
+
+export function SaveModifiedPDF(arg1) {
+  return window['go']['main']['App']['SaveModifiedPDF'](arg1);
+}
