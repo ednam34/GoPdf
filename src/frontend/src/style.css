@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+@font-face {
+    font-family: 'Mont'; /* Name your font family */
+    src: url('assets/fonts/MONT.otf'); /* Locate the .ttf file within your directory*/
+  }
+
+html {
+    background-color:  rgba(85, 160, 221, 0.25);
+    text-align: center;
+    color: white;
+}
+
+
+body {
+    margin: 0;
+    font-family: 'Ubuntu', sans-serif;
+    /* Utilisez 'Ubuntu' pour tout le texte du site */
+}
+
+
+.righteous-regular {
+    font-family: "Mont", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button {
+    font-family: 'Mont', serif;
+    /* Utilisez 'Abril Fatface' pour les titres */
+}
+
+#app {
+    height: 100vh;
+    text-align: center;
+}
