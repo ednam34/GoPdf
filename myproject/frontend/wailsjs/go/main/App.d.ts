@@ -7,4 +7,14 @@ export function ImgToPdf():Promise<string>;
 
 export function OpenFile():Promise<string>;
 
+export function OpenSinglePdf():Promise<string>;
+
 export function OptimizeFile():Promise<string>;
+
+export function PrintArr(arg1:Array<number>):Promise<void>;
+
+export function PrintString(arg1:string):Promise<void>;
+
+export function PrintT(arg1:any):Promise<void>;
+
+export function RemovePages(arg1:Array<number>,arg2:string):Promise<string>;

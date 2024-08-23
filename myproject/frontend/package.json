@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@primevue/themes": "^4.0.4",
+    "@tato30/vue-pdf": "^1.11.0",
     "buefy": "npm:@ntohq/buefy-next@^0.1.4",
     "element-plus": "^2.8.0",
     "marked": "^14.0.0",

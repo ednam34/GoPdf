@@ -14,6 +14,26 @@ export function OpenFile() {
   return window['go']['main']['App']['OpenFile']();
 }
 
+export function OpenSinglePdf() {
+  return window['go']['main']['App']['OpenSinglePdf']();
+}
+
 export function OptimizeFile() {
   return window['go']['main']['App']['OptimizeFile']();
+}
+
+export function PrintArr(arg1) {
+  return window['go']['main']['App']['PrintArr'](arg1);
+}
+
+export function PrintString(arg1) {
+  return window['go']['main']['App']['PrintString'](arg1);
+}
+
+export function PrintT(arg1) {
+  return window['go']['main']['App']['PrintT'](arg1);
+}
+
+export function RemovePages(arg1, arg2) {
+  return window['go']['main']['App']['RemovePages'](arg1, arg2);
 }

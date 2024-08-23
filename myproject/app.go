@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"gopdf/backend"
+	"log"
 	"os"
 
 	"github.com/pdfcpu/pdfcpu/pkg/api"
@@ -23,6 +25,18 @@ func NewApp() *App {
 // startup is called when the app starts. The context is saved
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
+
+	if _, err := os.Stat("./temp/"); os.IsNotExist(err) {
+		// Si le répertoire n'existe pas, le crée
+		err := os.MkdirAll("./temp/", os.ModePerm)
+		if err != nil {
+			fmt.Println("échec de la création du répertoire %s: %w", "./temp/", err)
+		}
+		fmt.Printf("Répertoire créé: %s\n", "./temp/")
+	} else {
+		fmt.Printf("Le répertoire existe déjà: %s\n", "./temp/")
+	}
+
 	a.ctx = ctx
 }
 
@@ -152,4 +166,61 @@ func (a *App) ImgToPdf() string {
 		return "the images have been converted"
 
 	}
+}
+
+func (a *App) OpenSinglePdf() string {
+	filePath, err := runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
+		Title: "Choisir un fichier",
+	})
+
+	if err != nil {
+		return "an error has occurred"
+	}
+
+	if filePath == "" {
+		return "Select a file"
+	}
+
+	tempFilePath, err := backend.CopyFileToTemp(filePath)
+	if err != nil {
+		log.Println(err)
+		return "Failed to copy file to temp directory"
+	}
+
+	// Retourne le chemin du fichier temporaire à utiliser dans le frontend
+	return tempFilePath
+}
+
+func (a *App) PrintT(an any) {
+	fmt.Println(an)
+}
+
+func (a *App) PrintString(s string) {
+	fmt.Println(s)
+}
+func (a *App) PrintArr(s []int) {
+	fmt.Println(s)
+}
+
+func (a *App) RemovePages(pagesList []int, filePath string) string {
+	fileName := backend.GetTempFile(".pdf")
+	outputFile := "./temp/" + fileName
+
+	fmt.Println("ici on a : ", filePath)
+	arr := backend.IntSliceToStr(pagesList)
+	api.RemovePagesFile("./temp/"+filePath, outputFile, arr, nil)
+
+	return fileName
+}
+
+func (a *App) beforeClosing(ctx context.Context) bool {
+
+	err := backend.DeleteAllTempFiles()
+
+	if err != nil {
+		log.Fatal(err)
+		return true
+	}
+
+	return false
 }

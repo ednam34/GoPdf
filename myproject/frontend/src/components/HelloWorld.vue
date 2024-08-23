@@ -35,6 +35,7 @@ function Img() {
 </script>
 
 <template>
+  <img id="logo" alt="Wails logo" src="../assets/images/pdf.png"/>
   <main>
     <div id="result" class="result"> <el-text class="mx-1" tag="b" type="warning" size="large">{{ data.resultText }}</el-text></div>
     <div id="input" class="input-box">
@@ -52,6 +53,18 @@ function Img() {
   height: 20px;
   line-height: 20px;
   margin: 1.5rem auto;
+}
+
+#logo {
+  display: block;
+  width: 50%;
+  height: 50%;
+  margin: auto;
+  padding: 10% 0 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-origin: content-box;
 }
 
 
