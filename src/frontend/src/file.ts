@@ -1,11 +1,27 @@
 
 
 import { page, pageToDelete, pdfKey, pdfPath } from './shared';
-import { ImgToPdf, MergePdf, OpenSinglePdf, OptimizePdf, PrintAny, RemovePages, SaveModifiedPDF } from '../wailsjs/go/Application/App';
+import { ImgToPdf, MergePdf, OpenSinglePdf, OpenSinglePdfFromPath, OptimizePdf, PrintAny, RemovePages, SaveModifiedPDF } from '../wailsjs/go/Application/App';
 
 
 export function OpenFile() {
     OpenSinglePdf()
+        .then(t => {
+            if (t) {
+                pdfPath.value = `${t}`; // Mettre à jour le chemin du PDF
+                page.value = 1;
+                pdfKey.value++;
+                PrintAny(t)
+                pageToDelete.value = [];
+            }
+        })
+        .catch(error => {
+            console.error("Erreur lors de l'ouverture du PDF:", error);
+        });
+}
+
+export function OpenFileFromPath(path:string) {
+    OpenSinglePdfFromPath(path)
         .then(t => {
             if (t) {
                 pdfPath.value = `${t}`; // Mettre à jour le chemin du PDF

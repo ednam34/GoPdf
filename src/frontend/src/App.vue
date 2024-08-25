@@ -2,20 +2,30 @@
 import { ref } from 'vue';
 import type { TabsPaneContext } from 'element-plus'
 import { Odometer,DocumentAdd, DocumentRemove,DocumentCopy, PictureFilled,UploadFilled } from '@element-plus/icons-vue'
-import HelloWorld from './components/HelloWorld.vue'
-import PdfViewer from './components/PdfViewer.vue';
+import { OnFileDrop } from "../wailsjs/runtime/runtime";
 import PdfView from './components/PdfView.vue';
-import {Compress, ImageConv, Merge, OpenFile, SavePdf, RemovePg} from './file'
+import {Compress, ImageConv, Merge, OpenFile, SavePdf, RemovePg, OpenFileFromPath} from './file'
+import { PrintAny, PrintString } from '../wailsjs/go/Application/App';
 const activeName = ref('first')
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)
 }
+
+
+OnFileDrop((x, y, paths) => {
+  PrintString('Position X:'+ x.toString);
+  PrintString('Position Y:'+ y.toString);
+  PrintString('Chemin du fichier déposé:'+ paths[0]);
+  OpenFileFromPath(paths[0]) 
+}, true);
+
+
 </script>
 
 <template>
 
-  <div class="common-layout">
+  <div class="common-layout" style="--wails-drop-target:drop">
     <el-container>
       <el-aside width="200px" class="side">
         <el-space direction="vertical" size="large" class="space">
@@ -43,22 +53,8 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
             </el-icon></el-button>
         </el-space>
       </el-aside>
-
-
-
-      
-      
       <el-main>
-
         <PdfView/>
-        <!-- <el-tabs tab-position="top" v-model="activeName" type="card" class="demo-tabs" @tab-click="handleClick">
-          <el-tab-pane label="User.pdf" name="first">
-            <HelloWorld />
-          </el-tab-pane>
-          <el-tab-pane label="Config.pdf" name="second">
-            <PdfViewer />
-          </el-tab-pane>
-        </el-tabs> -->
       </el-main>
     </el-container>
   </div>

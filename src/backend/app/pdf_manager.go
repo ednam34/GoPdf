@@ -120,6 +120,21 @@ func (a *App) OpenSinglePdf() string {
 	return tempFilePath
 }
 
+func (a *App) OpenSinglePdfFromPath(filePath string) string {
+	if filePath == "" {
+		return "Select a file"
+	}
+	fmt.Println("the path in go is : " + filePath)
+	tempFilePath, err := utils.CopyFileToTemp(filePath)
+	if err != nil {
+		log.Println(err)
+		return "Failed to copy file to temp directory"
+	}
+
+	// Return the temp file name
+	return tempFilePath
+}
+
 func (a *App) RemovePages(pagesList []int, filePath string) string {
 	fileName := utils.GetTempFile(".pdf")
 	outputFile := "./temp/" + fileName

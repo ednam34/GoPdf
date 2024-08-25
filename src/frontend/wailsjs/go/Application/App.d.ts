@@ -9,6 +9,8 @@ export function MergePdf():Promise<string>;
 
 export function OpenSinglePdf():Promise<string>;
 
+export function OpenSinglePdfFromPath(arg1:string):Promise<string>;
+
 export function OptimizePdf():Promise<string>;
 
 export function PrintAny(arg1:any):Promise<void>;

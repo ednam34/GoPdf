@@ -60,6 +60,9 @@ func main() {
 			WebviewIsTransparent: true,
 			WindowIsTranslucent:  true,
 		},
+		DragAndDrop: &options.DragAndDrop{
+			EnableFileDrop: true,
+		},
 		OnStartup:     app.Startup,
 		OnBeforeClose: app.BeforeClosing,
 		Bind: []interface{}{

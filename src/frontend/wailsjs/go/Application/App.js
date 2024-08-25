@@ -18,6 +18,10 @@ export function OpenSinglePdf() {
   return window['go']['Application']['App']['OpenSinglePdf']();
 }
 
+export function OpenSinglePdfFromPath(arg1) {
+  return window['go']['Application']['App']['OpenSinglePdfFromPath'](arg1);
+}
+
 export function OptimizePdf() {
   return window['go']['Application']['App']['OptimizePdf']();
 }

@@ -15,10 +15,21 @@
                         </el-icon>
                     </el-button>
                 </div>
-                <div class="pdf">
+                <div v-if="pdf" class="pdf">
                     <!-- Utiliser une clé pour forcer le rechargement du composant -->
                     <VuePDF :pdf="pdf" :page="page" :scale="0.6" :key="pdfKey" />
                 </div>
+                <div v-else class="pdf">
+                    <div class="pdf-upload-content">
+                        <el-icon class="el-icon--upload" size="50">
+                            <upload-filled />
+                        </el-icon>
+                        <div class="el-upload__text">
+                            <h1>Drop file here or click on the <em>open</em> button</h1>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </main>
@@ -27,14 +38,15 @@
 
 
 <script lang="ts" setup>
-import { ref } from 'vue';
 import { VuePDF, usePDF } from '@tato30/vue-pdf';
-import { ArrowLeftBold, ArrowRightBold, Select, CloseBold } from '@element-plus/icons-vue';
-import { OpenSinglePdf, PrintArr, PrintString, PrintAny, RemovePages, SaveModifiedPDF } from '../../wailsjs/go/Application/App';
-import { page,pageToDelete,pdfKey,pdfPath } from '../shared';
-
+import { ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue';
+import { PrintAny } from '../../wailsjs/go/Application/App';
+import { page, pdfKey, pdfPath } from '../shared';
+import { UploadFilled } from '@element-plus/icons-vue'
 
 const { pdf, pages } = usePDF(pdfPath);
+
+
 
 
 const prevPage = () => {
@@ -56,9 +68,23 @@ const nextPage = () => {
 
 <style scoped>
 
-.test2{
-    /* background-color: aliceblue; */
+.pdf-upload-content {
+  display: flex;
+  flex-direction: column; /* Place les éléments en colonne */
+  align-items: center;    /* Centre les éléments horizontalement */
+  justify-content: center; /* Centre les éléments verticalement */
+  text-align: center;
 }
+
+.el-icon--upload {
+  margin-bottom: 10px; /* Ajoute un espace entre l'icône et le texte */
+}
+
+.el-upload__text h1 {
+  font-size: 16px;
+}
+
+
 .pdf-container {
     margin-top: 2%;
     display: flex;
