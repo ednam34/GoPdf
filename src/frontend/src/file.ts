@@ -1,7 +1,7 @@
 
 
 import { page, pageToDelete, pdfKey, pdfPath } from './shared';
-import { ImgToPdf, MergePdf, OpenSinglePdf, OpenSinglePdfFromPath, OptimizePdf, PrintAny, RemovePages, SaveModifiedPDF } from '../wailsjs/go/Application/App';
+import { ImgToPdf, MergePdf, MoovePdfPage, OpenSinglePdf, OpenSinglePdfFromPath, OptimizePdf, PrintAny, RemovePages, SaveModifiedPDF } from '../wailsjs/go/Application/App';
 
 
 export function OpenFile() {
@@ -95,3 +95,13 @@ export function RemovePg() {
     })
 
 }
+
+
+export function MoovePage(){
+    MoovePdfPage(pdfPath.value,page.value).then(path => {
+        pdfPath.value = path; // Mettre à jour le chemin du PDF
+        pdfKey.value++;    // Incrémenter la clé pour forcer le rechargement du composant
+        pageToDelete.value = []
+    })
+}
+

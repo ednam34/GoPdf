@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+
+	"github.com/pdfcpu/pdfcpu/pkg/api"
 )
 
 func CopyFileToTemp(src string) (string, error) {
@@ -97,4 +99,55 @@ func GetTempFile(ext string) string {
 	fileName = strings.Replace(fileName, "*", randId, -1)
 
 	return fileName
+}
+
+func MoovePage(filePath string, page int) (string, error) {
+
+	pageMinusOne := strconv.Itoa(page - 1)
+	pagePlusOne := strconv.Itoa(page + 1)
+	pagePlustwo := strconv.Itoa(page + 2)
+
+	// Fichiers temporaires
+	firstPart := "./temp/" + GetTempFile(".pdf")
+	movedPage := "./temp/" + GetTempFile(".pdf")
+	nextPage := "./temp/" + GetTempFile(".pdf")
+	finalPart := "./temp/" + GetTempFile(".pdf")
+	outputFile := GetTempFile(".pdf")
+
+	err := api.TrimFile(filePath, firstPart, []string{"1-" + pageMinusOne}, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = api.TrimFile(filePath, movedPage, []string{strconv.Itoa(page)}, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = api.TrimFile(filePath, nextPage, []string{pagePlusOne}, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = api.TrimFile(filePath, finalPart, []string{pagePlustwo + "-"}, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = api.MergeCreateFile([]string{firstPart, nextPage, movedPage, finalPart}, "./temp/"+outputFile, false, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// Suppression des fichiers temporaires
+	os.Remove(firstPart)
+	os.Remove(movedPage)
+	os.Remove(nextPage)
+	os.Remove(finalPart)
+	os.Remove(filePath)
+
+	fmt.Println("heeeeeeeeeere : " + outputFile)
+
+	return outputFile, nil
+
 }

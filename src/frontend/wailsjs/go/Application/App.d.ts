@@ -7,6 +7,8 @@ export function ImgToPdf():Promise<string>;
 
 export function MergePdf():Promise<string>;
 
+export function MoovePdfPage(arg1:string,arg2:number):Promise<string>;
+
 export function OpenSinglePdf():Promise<string>;
 
 export function OpenSinglePdfFromPath(arg1:string):Promise<string>;

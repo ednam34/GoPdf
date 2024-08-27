@@ -14,6 +14,10 @@ export function MergePdf() {
   return window['go']['Application']['App']['MergePdf']();
 }
 
+export function MoovePdfPage(arg1, arg2) {
+  return window['go']['Application']['App']['MoovePdfPage'](arg1, arg2);
+}
+
 export function OpenSinglePdf() {
   return window['go']['Application']['App']['OpenSinglePdf']();
 }
