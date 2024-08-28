@@ -4,13 +4,14 @@ import type { TabsPaneContext } from 'element-plus'
 import { Odometer,DocumentAdd, DocumentRemove,DocumentCopy, PictureFilled,UploadFilled } from '@element-plus/icons-vue'
 import { OnFileDrop } from "../wailsjs/runtime/runtime";
 import PdfView from './components/PdfView.vue';
-import {Compress, ImageConv, Merge, OpenFile, SavePdf, RemovePg, OpenFileFromPath} from './file'
+import {Compress, ImageConv, Merge, OpenFile, SavePdf, RemovePg, OpenFileFromPath, MoovePage} from './file'
 import { PrintAny, PrintString } from '../wailsjs/go/Application/App';
 const activeName = ref('first')
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)
 }
+
 
 
 OnFileDrop((x, y, paths) => {
@@ -49,6 +50,10 @@ OnFileDrop((x, y, paths) => {
               <PictureFilled />
             </el-icon></el-button>
           <el-button plain @click="RemovePg">Remove this pages<el-icon class="el-icon--right" size="large">
+              <DocumentRemove />
+            </el-icon></el-button>
+
+            <el-button plain @click="MoovePage">Moove this pages<el-icon class="el-icon--right" size="large">
               <DocumentRemove />
             </el-icon></el-button>
         </el-space>

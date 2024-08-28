@@ -146,6 +146,12 @@ func (a *App) RemovePages(pagesList []int, filePath string) string {
 	return fileName
 }
 
+func (a *App) MoovePdfPage(filePath string, page int) string {
+	moovedPath, _ := utils.MoovePage("./temp/"+filePath, page)
+
+	return moovedPath
+}
+
 func (a *App) SaveModifiedPDF(path string) {
 	outputPath, err := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
 		Title: "Save file",
