@@ -105,3 +105,13 @@ export function MoovePage(){
     })
 }
 
+
+export function MoovePageBack(){
+    MoovePdfPage(pdfPath.value,page.value-1).then(path => {
+        pdfPath.value = path; // Mettre à jour le chemin du PDF
+        pdfKey.value++;    // Incrémenter la clé pour forcer le rechargement du composant
+        pageToDelete.value = []
+        page.value--;
+
+    })
+}

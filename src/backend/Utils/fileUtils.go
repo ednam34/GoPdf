@@ -114,27 +114,36 @@ func MoovePage(filePath string, page int) (string, error) {
 	finalPart := "./temp/" + GetTempFile(".pdf")
 	outputFile := GetTempFile(".pdf")
 
-	err := api.TrimFile(filePath, firstPart, []string{"1-" + pageMinusOne}, nil)
+	fileArr := []string{}
+
+	if page > 1 {
+		err := api.TrimFile(filePath, firstPart, []string{"1-" + pageMinusOne}, nil)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fileArr = append(fileArr, firstPart)
+	}
+
+	err := api.TrimFile(filePath, nextPage, []string{pagePlusOne}, nil)
 	if err != nil {
 		fmt.Println(err)
 	}
+	fileArr = append(fileArr, nextPage)
 
 	err = api.TrimFile(filePath, movedPage, []string{strconv.Itoa(page)}, nil)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	err = api.TrimFile(filePath, nextPage, []string{pagePlusOne}, nil)
-	if err != nil {
-		fmt.Println(err)
-	}
+	fileArr = append(fileArr, movedPage)
 
 	err = api.TrimFile(filePath, finalPart, []string{pagePlustwo + "-"}, nil)
 	if err != nil {
 		fmt.Println(err)
 	}
+	fileArr = append(fileArr, finalPart)
 
-	err = api.MergeCreateFile([]string{firstPart, nextPage, movedPage, finalPart}, "./temp/"+outputFile, false, nil)
+	err = api.MergeCreateFile(fileArr, "./temp/"+outputFile, false, nil)
 	if err != nil {
 		fmt.Println(err)
 	}

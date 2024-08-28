@@ -6,7 +6,8 @@ Small pdf manipulation tool.
 - Merge pdf
 - Images to pdf
 - Remove Pages
+- Move pages
 
 ## TODO
-- move pages
+- View all pages and move them with the mouse
 
