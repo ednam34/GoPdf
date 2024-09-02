@@ -7,7 +7,10 @@ Small pdf manipulation tool.
 - Images to pdf
 - Remove Pages
 - Move pages
+- View all pages and move them with the mouse
 
 ## TODO
-- View all pages and move them with the mouse
+
+Clean the code and the architecture
+
 
