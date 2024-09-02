@@ -64,8 +64,8 @@ func CopyFile(source string, destination string) error {
 	return nil
 }
 
-func DeleteAllTempFiles() error {
-	tempDir := "./temp/"
+func DeleteAllTempFiles(dirPath string) error {
+	tempDir := dirPath
 	files, err := os.ReadDir(tempDir)
 	if err != nil {
 		fmt.Println("Error reading directory:", err)
@@ -158,5 +158,36 @@ func MoovePage(filePath string, page int) (string, error) {
 	fmt.Println("heeeeeeeeeere : " + outputFile)
 
 	return outputFile, nil
+}
 
+func ReorderPages(filePath string, order []int, outputFilePath string) error {
+
+	err := os.MkdirAll("./temp/test", os.ModePerm)
+	if err != nil {
+		fmt.Printf("échec de la création du répertoire %s: %e", "./temp/test", err)
+	}
+
+	err = api.ExtractPagesFile("./temp/"+filePath, "./temp/test", nil, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	test := []string{}
+
+	pagesName := "./temp/test/" + strings.TrimSuffix(filePath, ".pdf") + "_page_"
+
+	for _, v := range order {
+		test = append(test, pagesName+strconv.Itoa(v)+".pdf")
+	}
+
+	fmt.Println(test)
+
+	err = api.MergeCreateFile(test, outputFilePath, false, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	DeleteAllTempFiles("./temp/test/")
+
+	return err
 }

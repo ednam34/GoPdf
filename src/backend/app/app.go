@@ -45,7 +45,7 @@ func (a *App) Greet(name string) string {
 
 func (a *App) BeforeClosing(ctx context.Context) bool {
 
-	err := utils.DeleteAllTempFiles()
+	err := utils.DeleteAllTempFiles("./temp/")
 
 	if err != nil {
 		log.Fatal(err)

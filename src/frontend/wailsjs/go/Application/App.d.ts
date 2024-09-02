@@ -23,4 +23,6 @@ export function PrintString(arg1:string):Promise<void>;
 
 export function RemovePages(arg1:Array<number>,arg2:string):Promise<string>;
 
+export function ReorderPdf(arg1:string,arg2:Array<number>):Promise<void>;
+
 export function SaveModifiedPDF(arg1:string):Promise<void>;

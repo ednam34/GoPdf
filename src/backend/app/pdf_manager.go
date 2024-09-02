@@ -173,3 +173,22 @@ func (a *App) SaveModifiedPDF(path string) {
 		fmt.Println(err)
 	}
 }
+
+func (a *App) ReorderPdf(filePath string, order []int) {
+
+	outputPath, err := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
+		Title: "Save file",
+		Filters: []runtime.FileFilter{
+			{
+				DisplayName: "pdf file",
+				Pattern:     "*.pdf",
+			},
+		},
+		DefaultFilename: "merge.pdf",
+	})
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	utils.ReorderPages(filePath, order, outputPath)
+}

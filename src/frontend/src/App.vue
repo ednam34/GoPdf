@@ -4,15 +4,23 @@ import type { TabsPaneContext } from 'element-plus'
 import { Odometer,DocumentAdd, DocumentRemove,DocumentCopy, PictureFilled,UploadFilled } from '@element-plus/icons-vue'
 import { OnFileDrop } from "../wailsjs/runtime/runtime";
 import PdfView from './components/PdfView.vue';
+import PdfMove from './components/PdfMove.vue';
 import {Compress, ImageConv, Merge, OpenFile, SavePdf, RemovePg, OpenFileFromPath, MoovePage} from './file'
 import { PrintAny, PrintString } from '../wailsjs/go/Application/App';
-const activeName = ref('first')
+import { isView } from './shared';
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)
 }
 
+const isViewTs = ():boolean =>{
+  return isView.value
+}
 
+
+const Test = () =>{
+  isView.value = !isView.value
+}
 
 OnFileDrop((x, y, paths) => {
   PrintString('Position X:'+ x.toString);
@@ -53,13 +61,18 @@ OnFileDrop((x, y, paths) => {
               <DocumentRemove />
             </el-icon></el-button>
 
-            <el-button plain @click="MoovePage">Moove this pages<el-icon class="el-icon--right" size="large">
+            <el-button plain @click="Test">Test<el-icon class="el-icon--right" size="large">
               <DocumentRemove />
             </el-icon></el-button>
         </el-space>
       </el-aside>
       <el-main>
-        <PdfView/>
+        <div v-if="isViewTs()">
+          <PdfView/>
+        </div>
+        <div v-else>
+          <PdfMove/>
+        </div>
       </el-main>
     </el-container>
   </div>

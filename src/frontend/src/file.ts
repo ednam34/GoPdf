@@ -1,7 +1,7 @@
 
 
-import { page, pageToDelete, pdfKey, pdfPath } from './shared';
-import { ImgToPdf, MergePdf, MoovePdfPage, OpenSinglePdf, OpenSinglePdfFromPath, OptimizePdf, PrintAny, RemovePages, SaveModifiedPDF } from '../wailsjs/go/Application/App';
+import { page, pageToDelete, pdfKey, pdfPath, isView } from './shared';
+import { ImgToPdf, MergePdf, MoovePdfPage, OpenSinglePdf, OpenSinglePdfFromPath, OptimizePdf, PrintAny, RemovePages, SaveModifiedPDF, ReorderPdf } from '../wailsjs/go/Application/App';
 
 
 export function OpenFile() {
@@ -96,6 +96,9 @@ export function RemovePg() {
 
 }
 
+export function Reorganize(order:number[]){
+    ReorderPdf(pdfPath.value,order)
+}
 
 export function MoovePage(){
     MoovePdfPage(pdfPath.value,page.value).then(path => {
