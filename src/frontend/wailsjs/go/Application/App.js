@@ -46,6 +46,10 @@ export function RemovePages(arg1, arg2) {
   return window['go']['Application']['App']['RemovePages'](arg1, arg2);
 }
 
+export function ReorderPdf(arg1, arg2) {
+  return window['go']['Application']['App']['ReorderPdf'](arg1, arg2);
+}
+
 export function SaveModifiedPDF(arg1) {
   return window['go']['Application']['App']['SaveModifiedPDF'](arg1);
 }

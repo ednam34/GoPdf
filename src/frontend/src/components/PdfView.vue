@@ -19,7 +19,6 @@
                     <!-- Utiliser une clé pour forcer le rechargement du composant -->
                     <VuePDF :pdf="pdf" :page="page" :scale="0.6" :key="pdfKey" />
 
-                    <!-- <VuePDF  v-for="p in pages" :pdf="pdf" :page="p" :scale="0.1" :key="pdfKey" /> -->
                 </div>
                 <div v-else class="pdf">
                     <div class="pdf-upload-content">
@@ -32,12 +31,12 @@
                     </div>
                 </div>
                 <div class="pdf-controls">
-                <el-button plain @click="MoovePageBack">Moove this pages back</el-button>
-                <el-button plain @click="MoovePage">Moove this pages front</el-button>
+                    <el-button plain @click="MoovePageBack">Moove this pages back</el-button>
+                    <el-button plain @click="MoovePage">Moove this pages front</el-button>
                 </div>
             </div>
         </div>
-         
+
     </main>
 </template>
 
@@ -49,7 +48,7 @@ import { ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue';
 import { PrintAny } from '../../wailsjs/go/Application/App';
 import { page, pdfKey, pdfPath } from '../shared';
 import { UploadFilled } from '@element-plus/icons-vue'
-import { MoovePage,MoovePageBack } from '../file';
+import { MoovePage, MoovePageBack } from '../file';
 
 const { pdf, pages } = usePDF(pdfPath);
 
@@ -74,21 +73,24 @@ const nextPage = () => {
 
 
 <style scoped>
-
 .pdf-upload-content {
-  display: flex;
-  flex-direction: column; /* Place les éléments en colonne */
-  align-items: center;    /* Centre les éléments horizontalement */
-  justify-content: center; /* Centre les éléments verticalement */
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    /* Place les éléments en colonne */
+    align-items: center;
+    /* Centre les éléments horizontalement */
+    justify-content: center;
+    /* Centre les éléments verticalement */
+    text-align: center;
 }
 
 .el-icon--upload {
-  margin-bottom: 10px; /* Ajoute un espace entre l'icône et le texte */
+    margin-bottom: 10px;
+    /* Ajoute un espace entre l'icône et le texte */
 }
 
 .el-upload__text h1 {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 
