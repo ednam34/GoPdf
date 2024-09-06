@@ -33,15 +33,10 @@ func (a *App) MergePdf() string {
 
 // Optimize a PDF File
 func (a *App) OptimizePdf() string {
-	filePath, err := runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
-		Title: "Choose a file",
-	})
-	if err != nil {
-		return "An error occurred during opening"
-	}
+	filePath, err := OpenSingleFileDialog(a)
 
-	if filePath == "" {
-		return "Select a file"
+	if err != nil {
+		fmt.Println(err)
 	}
 
 	inputFile, err := os.Open(filePath)
@@ -98,18 +93,11 @@ func (a *App) ImgToPdf() string {
 }
 
 func (a *App) OpenSinglePdf() string {
-	filePath, err := runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
-		Title: "Choose a file",
-	})
+	filePath, err := OpenSingleFileDialog(a)
 
 	if err != nil {
-		return "an error has occurred"
+		fmt.Println(err)
 	}
-
-	if filePath == "" {
-		return "Select a file"
-	}
-
 	tempFilePath, err := utils.CopyFileToTemp(filePath)
 	if err != nil {
 		log.Println(err)

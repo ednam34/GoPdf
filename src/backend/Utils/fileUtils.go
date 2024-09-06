@@ -12,6 +12,8 @@ import (
 	"github.com/pdfcpu/pdfcpu/pkg/api"
 )
 
+var tempDir string = "./temp/test"
+
 func CopyFileToTemp(src string) (string, error) {
 
 	name := GetTempFile(".pdf")
@@ -162,12 +164,12 @@ func MoovePage(filePath string, page int) (string, error) {
 
 func ReorderPages(filePath string, order []int, outputFilePath string) error {
 
-	err := os.MkdirAll("./temp/test", os.ModePerm)
+	err := os.MkdirAll(tempDir, os.ModePerm)
 	if err != nil {
-		fmt.Printf("échec de la création du répertoire %s: %e", "./temp/test", err)
+		fmt.Printf("échec de la création du répertoire %s: %e", tempDir, err)
 	}
 
-	err = api.ExtractPagesFile("./temp/"+filePath, "./temp/test", nil, nil)
+	err = api.ExtractPagesFile("./temp/"+filePath, tempDir, nil, nil)
 	if err != nil {
 		fmt.Println(err)
 	}

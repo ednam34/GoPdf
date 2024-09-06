@@ -18,11 +18,9 @@
 
 <script lang="ts" setup>
 import { VuePDF, usePDF } from '@tato30/vue-pdf';
-import { ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue';
-import { PrintAny, PrintArr, SaveModifiedPDF } from '../../wailsjs/go/Application/App';
-import { page, pdfKey, pdfPath } from '../shared';
-import { UploadFilled } from '@element-plus/icons-vue'
-import { MoovePage, MoovePageBack, Reorganize } from '../file';
+import { PrintArr } from '../../wailsjs/go/Application/App';
+import { pdfKey, pdfPath } from '../shared';
+import { Reorganize } from '../file';
 import draggable from 'vuedraggable'
 import { ref, watchEffect } from 'vue';
 

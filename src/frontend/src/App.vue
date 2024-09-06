@@ -61,7 +61,7 @@ OnFileDrop((x, y, paths) => {
               <DocumentRemove />
             </el-icon></el-button>
 
-            <el-button plain @click="Test">Test<el-icon class="el-icon--right" size="large">
+            <el-button plain @click="Test">Change View<el-icon class="el-icon--right" size="large">
               <DocumentRemove />
             </el-icon></el-button>
         </el-space>
@@ -86,6 +86,8 @@ OnFileDrop((x, y, paths) => {
   width: 100%;
 }
 
+
+
 .space button {
   padding-top: 0% !important;
   margin-top: -5% !important;
@@ -96,7 +98,7 @@ OnFileDrop((x, y, paths) => {
 .side {
   background-color: rgba(151, 174, 192, 0.25);
   height: 100vh;
-
+  position:relative;
 }
 
 /* Cible les labels des onglets non actifs */
