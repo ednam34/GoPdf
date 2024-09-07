@@ -12,13 +12,14 @@ import (
 	"github.com/pdfcpu/pdfcpu/pkg/api"
 )
 
-var tempDir string = "./temp/test"
+var tempTestDir string = "./temp/test"
+var tempDir string = "./temp/"
 
 func CopyFileToTemp(src string) (string, error) {
 
 	name := GetTempFile(".pdf")
 
-	tempFile, err := os.Create("./temp/" + name)
+	tempFile, err := os.Create(tempDir + name)
 	if err != nil {
 		return "", fmt.Errorf("échec de la création du fichier temporaire: %w", err)
 	}
@@ -67,8 +68,8 @@ func CopyFile(source string, destination string) error {
 }
 
 func DeleteAllTempFiles(dirPath string) error {
-	tempDir := dirPath
-	files, err := os.ReadDir(tempDir)
+	tempTestDir := dirPath
+	files, err := os.ReadDir(tempTestDir)
 	if err != nil {
 		fmt.Println("Error reading directory:", err)
 		return err
@@ -76,7 +77,7 @@ func DeleteAllTempFiles(dirPath string) error {
 
 	// Iterate over files and delete each one
 	for _, file := range files {
-		filePath := filepath.Join(tempDir, file.Name())
+		filePath := filepath.Join(tempTestDir, file.Name())
 
 		// Check if it is a file (and not a directory)
 		if !file.IsDir() {
@@ -110,10 +111,10 @@ func MoovePage(filePath string, page int) (string, error) {
 	pagePlustwo := strconv.Itoa(page + 2)
 
 	// Fichiers temporaires
-	firstPart := "./temp/" + GetTempFile(".pdf")
-	movedPage := "./temp/" + GetTempFile(".pdf")
-	nextPage := "./temp/" + GetTempFile(".pdf")
-	finalPart := "./temp/" + GetTempFile(".pdf")
+	firstPart := tempDir + GetTempFile(".pdf")
+	movedPage := tempDir + GetTempFile(".pdf")
+	nextPage := tempDir + GetTempFile(".pdf")
+	finalPart := tempDir + GetTempFile(".pdf")
 	outputFile := GetTempFile(".pdf")
 
 	fileArr := []string{}
@@ -145,7 +146,7 @@ func MoovePage(filePath string, page int) (string, error) {
 	}
 	fileArr = append(fileArr, finalPart)
 
-	err = api.MergeCreateFile(fileArr, "./temp/"+outputFile, false, nil)
+	err = api.MergeCreateFile(fileArr, tempDir+outputFile, false, nil)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -164,12 +165,12 @@ func MoovePage(filePath string, page int) (string, error) {
 
 func ReorderPages(filePath string, order []int, outputFilePath string) error {
 
-	err := os.MkdirAll(tempDir, os.ModePerm)
+	err := os.MkdirAll(tempTestDir, os.ModePerm)
 	if err != nil {
-		fmt.Printf("échec de la création du répertoire %s: %e", tempDir, err)
+		fmt.Printf("échec de la création du répertoire %s: %e", tempTestDir, err)
 	}
 
-	err = api.ExtractPagesFile("./temp/"+filePath, tempDir, nil, nil)
+	err = api.ExtractPagesFile(tempDir+filePath, tempTestDir, nil, nil)
 	if err != nil {
 		fmt.Println(err)
 	}

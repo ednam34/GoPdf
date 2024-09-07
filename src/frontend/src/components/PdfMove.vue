@@ -58,28 +58,40 @@ function Save() {
     height: 75vh; /* Ajuste la hauteur pour qu'elle prenne environ 80% de la hauteur de l'écran */
     overflow-y: scroll; /* Ajoute une barre de défilement verticale */
     padding-right: 10px; /* Optionnel : Ajoute de l'espace pour la scrollbar */
-    scrollbar-color: rgb(247, 247, 247) rgb(143, 164, 209);
-    scrollbar-width: thin;
+}
+/* Custom Scrollbar Styles */
+.pdf-pages::-webkit-scrollbar {
+  width: 7px; /* Largeur de la scrollbar */
+}
+
+/* Track */
+.pdf-pages::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Couleur de l'arrière-plan du track */
+}
+ 
+/* Handle */
+.pdf-pages::-webkit-scrollbar-thumb {
+  background: rgb(143, 164, 209);
+}
+
+/* Handle on hover */
+.pdf-pages::-webkit-scrollbar-thumb:hover {
+    background: rgb(143, 164, 209); 
 }
 
 
 .pdf-grid {
     display: flex;
     flex-wrap: wrap;
-    /* Permet de passer à la ligne suivante lorsque la largeur est atteinte */
     gap: 16px;
-    /* Espace entre les éléments */
     list-style-type: none;
-    /* Enlève les puces de la liste */
     padding: 0;
     margin: 0;
 }
 
 .pdf-item {
     width: calc(33.33% - 16px);
-    /* Ajuster la largeur en fonction du nombre de colonnes désirées */
     box-sizing: border-box;
-    /* Assure que padding et border sont inclus dans la largeur */
     position: relative;
 }
 

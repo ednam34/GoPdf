@@ -14,15 +14,11 @@ import (
 
 // OpenFile ouvre une boîte de dialogue pour sélectionner un fichier et lit son contenu
 func (a *App) MergePdf() string {
-	filePath, err := runtime.OpenMultipleFilesDialog(a.ctx, runtime.OpenDialogOptions{
-		Title: "Choose a file",
-	})
-	if err != nil {
-		return "an error"
-	}
 
-	if filePath == nil {
-		return "select a file"
+	filePath, err := OpenMultipleFileDialog(a)
+
+	if err != nil {
+		fmt.Println(err)
 	}
 
 	NewfilePath := utils.GetTempFile(".pdf")
@@ -67,15 +63,10 @@ func (a *App) OptimizePdf() string {
 }
 
 func (a *App) ImgToPdf() string {
-	filePath, err := runtime.OpenMultipleFilesDialog(a.ctx, runtime.OpenDialogOptions{
-		Title: "Choose a file",
-	})
-	if err != nil {
-		return "an error has occurred during opening"
-	}
+	filesPath, err := OpenMultipleFileDialog(a)
 
-	if filePath == nil {
-		return "Select a file"
+	if err != nil {
+		fmt.Println(err)
 	}
 
 	config := model.NewDefaultConfiguration()
@@ -85,7 +76,7 @@ func (a *App) ImgToPdf() string {
 	//Image will be on an A5 format
 	imp, _ := api.Import("f:A5, pos:c", types.POINTS)
 
-	err = api.ImportImagesFile(filePath, "./temp/"+outputPath, imp, config)
+	err = api.ImportImagesFile(filesPath, "./temp/"+outputPath, imp, config)
 	if err != nil {
 		return "an error has occured"
 	}
