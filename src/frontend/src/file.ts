@@ -96,6 +96,18 @@ export function RemovePg() {
 
 }
 
+export function RemovePgWithPosition(pos:number) {
+    
+    RemovePages([pos], pdfPath.value).then(path => {
+        pdfPath.value = path; // Mettre à jour le chemin du PDF
+        pdfKey.value++;    // Incrémenter la clé pour forcer le rechargement du composant
+        pageToDelete.value = []
+
+        
+    })
+
+}
+
 export function Reorganize(order:number[]){
     ReorderPdf(pdfPath.value,order)
 }
