@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import type { TabsPaneContext } from 'element-plus'
-import { Odometer,DocumentAdd, DocumentRemove,DocumentCopy, PictureFilled,UploadFilled } from '@element-plus/icons-vue'
+import { Odometer, DocumentAdd, DocumentRemove, DocumentCopy, PictureFilled, UploadFilled } from '@element-plus/icons-vue'
 import { OnFileDrop } from "../wailsjs/runtime/runtime";
 import PdfView from './components/PdfView.vue';
 import PdfMove from './components/PdfMove.vue';
-import {Compress, ImageConv, Merge, OpenFile, SavePdf, RemovePg, OpenFileFromPath, MoovePage} from './file'
+import { Compress, ImageConv, Merge, OpenFile, SavePdf, RemovePg, OpenFileFromPath, MoovePage } from './file'
 import { PrintAny, PrintString } from '../wailsjs/go/Application/App';
 import { isView } from './shared';
 
@@ -13,20 +13,20 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)
 }
 
-const isViewTs = ():boolean =>{
+const isViewTs = (): boolean => {
   return isView.value
 }
 
 
-const Test = () =>{
+const Test = () => {
   isView.value = !isView.value
 }
 
 OnFileDrop((x, y, paths) => {
-  PrintString('Position X:'+ x.toString);
-  PrintString('Position Y:'+ y.toString);
-  PrintString('Chemin du fichier déposé:'+ paths[0]);
-  OpenFileFromPath(paths[0]) 
+  PrintString('Position X:' + x.toString);
+  PrintString('Position Y:' + y.toString);
+  PrintString('Chemin du fichier déposé:' + paths[0]);
+  OpenFileFromPath(paths[0])
 }, true);
 
 
@@ -41,15 +41,15 @@ OnFileDrop((x, y, paths) => {
           <h1>Open File :</h1>
           <el-button plain @click="OpenFile">Open<el-icon class="el-icon--right" size="large">
               <UploadFilled />
-          </el-icon></el-button>
+            </el-icon></el-button>
 
           <el-button plain @click="SavePdf">Save<el-icon class="el-icon--right" size="large">
               <DocumentAdd />
             </el-icon></el-button>
-          
-          <h1>All Option :</h1>
+
+          <h1>All Tools :</h1>
           <el-button plain @click="Merge">Merge<el-icon class="el-icon--right" size="large">
-            <DocumentCopy/> 
+              <DocumentCopy />
             </el-icon></el-button>
           <el-button plain @click="Compress">Optimize<el-icon class="el-icon--right" size="large">
               <Odometer />
@@ -57,21 +57,17 @@ OnFileDrop((x, y, paths) => {
           <el-button plain @click="ImageConv">Image to pdf<el-icon class="el-icon--right" size="large">
               <PictureFilled />
             </el-icon></el-button>
-          <el-button plain @click="RemovePg">Remove this pages<el-icon class="el-icon--right" size="large">
-              <DocumentRemove />
-            </el-icon></el-button>
-
-            <el-button plain @click="Test">Change View<el-icon class="el-icon--right" size="large">
+          <el-button plain @click="Test">Change View<el-icon class="el-icon--right" size="large">
               <DocumentRemove />
             </el-icon></el-button>
         </el-space>
       </el-aside>
       <el-main>
         <div v-if="isViewTs()">
-          <PdfView/>
+          <PdfView />
         </div>
         <div v-else>
-          <PdfMove/>
+          <PdfMove />
         </div>
       </el-main>
     </el-container>
@@ -98,7 +94,7 @@ OnFileDrop((x, y, paths) => {
 .side {
   background-color: rgba(151, 174, 192, 0.25);
   height: 100vh;
-  position:relative;
+  position: relative;
 }
 
 /* Cible les labels des onglets non actifs */

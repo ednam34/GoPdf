@@ -18,6 +18,7 @@
                 <div v-if="pdf" class="pdf">
                     <!-- Utiliser une clé pour forcer le rechargement du composant -->
                     <VuePDF :pdf="pdf" :page="page" :scale="0.6" :key="pdfKey" />
+                    <el-button type="danger" :icon="Close" class="delete-button" @click="RemovePgWithPosition(page)" circle />
 
                 </div>
                 <div v-else class="pdf">
@@ -47,8 +48,8 @@ import { VuePDF, usePDF } from '@tato30/vue-pdf';
 import { ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue';
 import { PrintAny } from '../../wailsjs/go/Application/App';
 import { page, pdfKey, pdfPath } from '../shared';
-import { UploadFilled } from '@element-plus/icons-vue'
-import { MoovePage, MoovePageBack } from '../file';
+import { UploadFilled,Close } from '@element-plus/icons-vue'
+import { MoovePage, MoovePageBack,RemovePgWithPosition } from '../file';
 
 const { pdf, pages } = usePDF(pdfPath);
 
@@ -105,6 +106,7 @@ const nextPage = () => {
 }
 
 .pdf {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,5 +121,12 @@ const nextPage = () => {
 
 .deletePages {
     margin-top: 20px;
+}
+
+.delete-button {
+    position: absolute; 
+    top: 45px; 
+    right: 155px; 
+    z-index: 1;
 }
 </style>
